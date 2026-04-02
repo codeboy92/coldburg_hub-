@@ -1,1 +1,1408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Coldburg Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --blue:#0b3d91;--blue-light:#1a5cbf;--blue-dark:#072970;
+  --orange:#f47920;--orange-dark:#d9620d;--yellow:#ffd200;
+  --green:#27ae60;--red:#e74c3c;--purple:#8e44ad;
+  --gray-bg:#f4f4f4;--white:#fff;--text:#1a1a2e;--text-muted:#666;
+  --border:#dde1e7;--card-shadow:0 2px 12px rgba(0,0,0,.08);
+  --card-hover:0 8px 28px rgba(11,61,145,.15);--radius:8px;
+  --font:'Barlow',sans-serif;--font-cond:'Barlow Condensed',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:var(--gray-bg);color:var(--text);min-height:100vh}
 
+/* NAV */
+.navbar{background:var(--blue);color:#fff;position:sticky;top:0;z-index:1000;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.nav-top{display:flex;align-items:center;gap:14px;max-width:1320px;margin:0 auto;padding:10px 20px}
+.logo{font-family:var(--font-cond);font-size:26px;font-weight:900;letter-spacing:-.5px;color:#fff;cursor:pointer;white-space:nowrap}
+.logo span{color:var(--orange)}
+.search-bar{flex:1;display:flex;border-radius:6px;overflow:hidden;border:2px solid var(--orange)}
+.search-bar input{flex:1;padding:8px 14px;font-family:var(--font);font-size:14px;border:none;outline:none}
+.search-bar button{background:var(--orange);border:none;padding:0 18px;cursor:pointer;color:#fff;font-size:17px;transition:background .2s}
+.search-bar button:hover{background:var(--orange-dark)}
+.nav-actions{display:flex;gap:7px;align-items:center;flex-shrink:0}
+.nav-btn{background:transparent;border:1.5px solid rgba(255,255,255,.3);color:#fff;padding:7px 13px;border-radius:6px;cursor:pointer;font-family:var(--font);font-size:12px;font-weight:700;transition:all .2s;white-space:nowrap}
+.nav-btn:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.6)}
+.nav-btn.primary{background:var(--orange);border-color:var(--orange)}
+.nav-btn.primary:hover{background:var(--orange-dark)}
+.nav-btn.admin-btn{background:var(--purple);border-color:var(--purple)}
+.cart-btn{position:relative;background:var(--orange);border:none;color:#fff;padding:7px 15px;border-radius:6px;cursor:pointer;font-family:var(--font);font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px;transition:background .2s}
+.cart-btn:hover{background:var(--orange-dark)}
+.cart-badge{background:var(--yellow);color:var(--blue-dark);border-radius:50%;width:18px;height:18px;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.nav-bottom{background:var(--blue-dark);display:flex;padding:0 20px;overflow-x:auto}
+.nav-cat{color:rgba(255,255,255,.8);font-size:12.5px;font-weight:600;padding:8px 14px;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s}
+.nav-cat:hover,.nav-cat.active{color:#fff;border-bottom-color:var(--orange)}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--blue) 0%,var(--blue-light) 50%,#1e3a8a 100%);padding:40px 20px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")}
+.hero-inner{max-width:1320px;margin:0 auto;position:relative}
+.hero h1{font-family:var(--font-cond);font-size:50px;font-weight:900;color:#fff;line-height:1;letter-spacing:-1px}
+.hero h1 span{color:var(--orange)}
+.hero p{color:rgba(255,255,255,.8);margin-top:10px;font-size:16px}
+.hero-cta{display:flex;gap:12px;margin-top:20px}
+.btn-hero{padding:11px 26px;border-radius:6px;font-family:var(--font);font-weight:700;font-size:14px;border:none;cursor:pointer;transition:all .2s}
+.btn-hero.orange{background:var(--orange);color:#fff}
+.btn-hero.orange:hover{background:var(--orange-dark);transform:translateY(-1px)}
+.btn-hero.outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.5)}
+.btn-hero.outline:hover{background:rgba(255,255,255,.1);border-color:#fff}
+
+/* MAIN */
+.main{max-width:1320px;margin:0 auto;padding:24px 20px}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.section-title{font-family:var(--font-cond);font-size:22px;font-weight:800;color:var(--blue);border-left:4px solid var(--orange);padding-left:10px}
+.see-all{color:var(--blue-light);font-size:13px;font-weight:600;cursor:pointer}
+.see-all:hover{text-decoration:underline}
+
+/* CAT PILLS */
+.cat-pills{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}
+.cat-pill{background:#fff;border:1.5px solid var(--border);border-radius:50px;padding:6px 16px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;color:var(--text)}
+.cat-pill:hover,.cat-pill.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+
+/* PROMO */
+.promo-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px}
+.promo-card{border-radius:var(--radius);padding:20px 24px;color:#fff;display:flex;flex-direction:column;gap:6px;cursor:pointer;transition:transform .2s;min-height:100px;justify-content:center}
+.promo-card:hover{transform:translateY(-2px)}
+.promo-card h3{font-family:var(--font-cond);font-size:22px;font-weight:900}
+.promo-card p{font-size:13px;opacity:.85}
+.promo-card.blue{background:linear-gradient(135deg,var(--blue),var(--blue-light))}
+.promo-card.orange{background:linear-gradient(135deg,var(--orange),#f5a623)}
+.promo-card.dark{background:linear-gradient(135deg,#1a1a2e,#16213e)}
+
+/* PRODUCTS */
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:32px}
+.product-card{background:#fff;border-radius:var(--radius);box-shadow:var(--card-shadow);overflow:hidden;cursor:pointer;transition:all .25s;display:flex;flex-direction:column;position:relative}
+.product-card:hover{box-shadow:var(--card-hover);transform:translateY(-3px)}
+.product-badge{position:absolute;top:8px;left:8px;background:var(--red);color:#fff;font-size:11px;font-weight:800;padding:2px 8px;border-radius:4px;z-index:1}
+.product-badge.new{background:var(--green)}
+.product-badge.hot{background:var(--orange)}
+.product-img{width:100%;height:175px;object-fit:contain;background:#f8f9fa;display:flex;align-items:center;justify-content:center;font-size:60px;padding:10px}
+.product-img img{max-width:100%;max-height:100%;object-fit:contain;border-radius:4px}
+.product-info{padding:12px;flex:1;display:flex;flex-direction:column}
+.product-name{font-size:13px;font-weight:600;line-height:1.4;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.product-seller{font-size:11px;color:var(--text-muted);margin-bottom:8px}
+.product-price{font-size:18px;font-weight:800;color:var(--blue);font-family:var(--font-cond)}
+.product-original{font-size:12px;color:var(--text-muted);text-decoration:line-through;margin-left:6px}
+.product-discount{font-size:11px;color:var(--red);font-weight:700}
+.product-rating{display:flex;align-items:center;gap:4px;margin-top:4px}
+.stars{color:var(--yellow);font-size:12px}
+.rating-count{font-size:11px;color:var(--text-muted)}
+.add-to-cart-btn{margin-top:10px;width:100%;background:var(--orange);color:#fff;border:none;padding:8px;border-radius:5px;font-family:var(--font);font-weight:700;font-size:13px;cursor:pointer;transition:background .2s}
+.add-to-cart-btn:hover{background:var(--orange-dark)}
+.add-to-cart-btn:disabled{background:#ccc;cursor:not-allowed}
+
+/* OVERLAY & MODAL */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{background:#fff;border-radius:12px;padding:32px;width:100%;max-width:480px;box-shadow:0 20px 60px rgba(0,0,0,.3);animation:slideUp .25s ease;max-height:90vh;overflow-y:auto}
+.modal.wide{max-width:720px}
+.modal.xl{max-width:1000px}
+@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.modal-title{font-family:var(--font-cond);font-size:24px;font-weight:800;color:var(--blue)}
+.modal-close{background:#f0f0f0;border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.modal-close:hover{background:#ddd}
+
+/* FORMS */
+.form-group{margin-bottom:15px}
+.form-group label{display:block;font-size:13px;font-weight:600;margin-bottom:5px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:6px;font-family:var(--font);font-size:14px;outline:none;transition:border-color .2s;color:var(--text);background:#fff}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--blue)}
+.form-group textarea{min-height:80px;resize:vertical}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn-primary{background:var(--blue);color:#fff;border:none;padding:11px 24px;border-radius:6px;font-family:var(--font);font-weight:700;font-size:14px;cursor:pointer;transition:background .2s;width:100%}
+.btn-primary:hover{background:var(--blue-dark)}
+.btn-orange{background:var(--orange);color:#fff;border:none;padding:11px 24px;border-radius:6px;font-family:var(--font);font-weight:700;font-size:14px;cursor:pointer;transition:background .2s;width:100%}
+.btn-orange:hover{background:var(--orange-dark)}
+.btn-outline{background:transparent;color:var(--blue);border:2px solid var(--blue);padding:10px 24px;border-radius:6px;font-family:var(--font);font-weight:700;font-size:14px;cursor:pointer;transition:all .2s;width:100%}
+.btn-outline:hover{background:var(--blue);color:#fff}
+.btn-green{background:var(--green);color:#fff;border:none;padding:6px 14px;border-radius:5px;font-family:var(--font);font-weight:700;font-size:12px;cursor:pointer;transition:background .2s}
+.btn-red{background:var(--red);color:#fff;border:none;padding:6px 14px;border-radius:5px;font-family:var(--font);font-weight:700;font-size:12px;cursor:pointer;transition:background .2s}
+.form-switch{text-align:center;margin-top:14px;font-size:13px;color:var(--text-muted)}
+.form-switch a{color:var(--blue);cursor:pointer;font-weight:600;text-decoration:underline}
+.form-tabs{display:flex;margin-bottom:20px;border-bottom:2px solid var(--border)}
+.form-tab{padding:10px 18px;font-weight:700;font-size:14px;cursor:pointer;color:var(--text-muted);border-bottom:2px solid transparent;margin-bottom:-2px}
+.form-tab.active{color:var(--blue);border-bottom-color:var(--blue)}
+.alert{padding:10px 14px;border-radius:6px;font-size:13px;margin-bottom:14px}
+.alert.error{background:#fdecea;color:var(--red);border:1px solid #f5c6cb}
+.alert.success{background:#d4edda;color:#155724;border:1px solid #c3e6cb}
+.alert.warning{background:#fff3cd;color:#856404;border:1px solid #ffeeba}
+.alert.info{background:#d1ecf1;color:#0c5460;border:1px solid #bee5eb}
+
+/* CART */
+.cart-item{display:flex;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid var(--border)}
+.cart-item-img{font-size:32px;width:56px;height:56px;display:flex;align-items:center;justify-content:center;background:#f8f9fa;border-radius:6px;flex-shrink:0;overflow:hidden}
+.cart-item-img img{max-width:100%;max-height:100%;object-fit:contain}
+.cart-item-info{flex:1}
+.cart-item-name{font-weight:600;font-size:14px}
+.cart-item-seller{font-size:12px;color:var(--text-muted)}
+.cart-item-price{font-weight:800;color:var(--blue);font-family:var(--font-cond);font-size:16px;flex-shrink:0}
+.qty-ctrl{display:flex;align-items:center;gap:8px;margin-top:6px}
+.qty-btn{width:26px;height:26px;border:1.5px solid var(--border);background:#fff;border-radius:4px;cursor:pointer;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.qty-btn:hover{border-color:var(--blue);color:var(--blue)}
+.qty-num{font-weight:700;font-size:14px;min-width:20px;text-align:center}
+.cart-remove{color:var(--red);background:none;border:none;cursor:pointer;font-size:12px;font-weight:600}
+.cart-total-row{display:flex;justify-content:space-between;align-items:center;padding:16px 0}
+.cart-total-val{font-size:24px;font-weight:900;color:var(--blue);font-family:var(--font-cond)}
+
+/* PRODUCT DETAIL */
+.prod-detail{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.prod-img-big{background:#f8f9fa;border-radius:10px;display:flex;align-items:center;justify-content:center;height:280px;font-size:90px;overflow:hidden}
+.prod-img-big img{max-width:100%;max-height:100%;object-fit:contain}
+
+/* SELLER DASHBOARD */
+.dash-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
+.dash-stat{background:#fff;border-radius:var(--radius);padding:20px;box-shadow:var(--card-shadow);border-left:4px solid var(--blue)}
+.dash-stat.orange{border-color:var(--orange)}
+.dash-stat.green{border-color:var(--green)}
+.dash-stat.red{border-color:var(--red)}
+.dash-stat-val{font-family:var(--font-cond);font-size:30px;font-weight:900}
+.dash-stat-label{font-size:12px;color:var(--text-muted);margin-top:4px}
+
+/* TABLES */
+.data-table{width:100%;border-collapse:collapse;font-size:13px}
+.data-table th{background:var(--blue);color:#fff;padding:10px 12px;text-align:left;font-weight:700;white-space:nowrap}
+.data-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.data-table tr:hover td{background:#f8f9fa}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:800}
+.badge.pending{background:#fff3cd;color:#856404}
+.badge.approved{background:#d4edda;color:#155724}
+.badge.rejected{background:#fdecea;color:var(--red)}
+.badge.processing{background:#d1ecf1;color:#0c5460}
+.badge.delivered{background:#d4edda;color:#155724}
+.badge.active{background:#d4edda;color:#155724}
+.badge.suspended{background:#fdecea;color:var(--red)}
+
+/* TOAST */
+.toast-container{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:10px;pointer-events:none}
+.toast{background:var(--text);color:#fff;padding:12px 20px;border-radius:8px;font-size:14px;font-weight:600;box-shadow:0 4px 20px rgba(0,0,0,.3);animation:slideInRight .3s ease;display:flex;align-items:center;gap:10px;min-width:280px;pointer-events:auto}
+.toast.success{background:var(--green)}
+.toast.error{background:var(--red)}
+.toast.info{background:var(--blue)}
+.toast.warning{background:var(--orange)}
+@keyframes slideInRight{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+
+/* CHECKOUT */
+.steps{display:flex;align-items:center;margin-bottom:28px}
+.step{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--border);color:var(--text-muted);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800}
+.step.active .step-num{background:var(--blue);color:#fff}
+.step.done .step-num{background:var(--green);color:#fff}
+.step-line{flex:1;height:2px;background:var(--border);margin:0 12px}
+.step-line.done{background:var(--green)}
+
+/* PENDING SELLER NOTICE */
+.pending-notice{background:linear-gradient(135deg,#fff3cd,#ffeaa7);border:2px solid #f39c12;border-radius:10px;padding:24px;text-align:center;margin:20px 0}
+.pending-notice h3{font-family:var(--font-cond);font-size:22px;font-weight:900;color:#856404;margin-bottom:8px}
+.pending-notice p{font-size:14px;color:#6c4a00}
+
+/* ADMIN */
+.admin-header{background:linear-gradient(135deg,var(--purple),#6c3483);padding:20px 24px;border-radius:10px;color:#fff;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between}
+.admin-header h2{font-family:var(--font-cond);font-size:28px;font-weight:900}
+.admin-tabs{display:flex;gap:4px;margin-bottom:20px;background:#f0f0f0;padding:4px;border-radius:8px}
+.admin-tab{padding:9px 18px;font-weight:700;font-size:13px;cursor:pointer;color:var(--text-muted);border-radius:6px;transition:all .2s}
+.admin-tab.active{background:#fff;color:var(--purple);box-shadow:0 1px 4px rgba(0,0,0,.1)}
+
+/* IMAGE PREVIEW */
+.img-preview-wrap{position:relative;margin-top:8px}
+.img-preview{width:100%;max-height:160px;object-fit:contain;border-radius:6px;border:1.5px solid var(--border);background:#f8f9fa}
+.file-input-label{display:block;padding:10px;background:#f8f9fa;border:2px dashed var(--border);border-radius:6px;text-align:center;cursor:pointer;font-size:13px;color:var(--text-muted);transition:all .2s}
+.file-input-label:hover{border-color:var(--blue);color:var(--blue);background:#eef2ff}
+
+/* NO RESULTS */
+.empty-state{text-align:center;padding:60px 20px}
+.empty-state-icon{font-size:60px;margin-bottom:16px}
+.empty-state h3{font-size:20px;font-weight:700;margin-bottom:8px}
+.empty-state p{color:var(--text-muted);font-size:14px}
+
+/* ORDERS */
+.order-card{background:#fff;border-radius:var(--radius);padding:16px;box-shadow:var(--card-shadow);margin-bottom:14px}
+.order-success{text-align:center;padding:20px 0}
+.order-icon{font-size:64px;margin-bottom:16px}
+.order-num{background:var(--gray-bg);padding:10px 20px;border-radius:6px;font-weight:700;margin:12px auto;display:inline-block}
+
+/* FOOTER */
+footer{background:var(--blue-dark);color:rgba(255,255,255,.75);padding:40px 20px 20px;margin-top:40px}
+.footer-inner{max-width:1320px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-bottom:32px}
+.footer-col h4{color:#fff;font-weight:800;margin-bottom:14px;font-size:14px}
+.footer-col a{display:block;color:rgba(255,255,255,.65);font-size:13px;margin-bottom:8px;cursor:pointer}
+.footer-col a:hover{color:var(--orange)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:20px;font-size:12px;text-align:center}
+
+/* SELLER BADGE */
+.seller-badge{background:var(--orange);color:#fff;font-size:10px;font-weight:800;padding:1px 6px;border-radius:3px;margin-left:5px;vertical-align:middle}
+.admin-badge{background:var(--purple);color:#fff;font-size:10px;font-weight:800;padding:1px 6px;border-radius:3px;margin-left:5px;vertical-align:middle}
+
+@media(max-width:768px){
+  .nav-top{flex-wrap:wrap}
+  .logo{font-size:20px}
+  .search-bar{order:3;width:100%}
+  .products-grid{grid-template-columns:repeat(2,1fr)}
+  .promo-strip{grid-template-columns:1fr}
+  .dash-grid{grid-template-columns:1fr 1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .prod-detail{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .hero h1{font-size:32px}
+  .modal.xl{max-width:100%}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════
+// SHARED DATABASE  — uses localStorage as the "server database"
+// BroadcastChannel syncs changes across all open tabs in real time
+// ═══════════════════════════════════════════════════════════════════════
+const DB_KEY = 'cbhub_db';
+let channel;
+try { channel = new BroadcastChannel('cbhub_sync'); } catch(e){ channel = null; }
+
+const DB = {
+  _data: null,
+
+  load() {
+    try {
+      const raw = localStorage.getItem(DB_KEY);
+      this._data = raw ? JSON.parse(raw) : this._default();
+    } catch { this._data = this._default(); }
+    return this._data;
+  },
+
+  save() {
+    localStorage.setItem(DB_KEY, JSON.stringify(this._data));
+    if (channel) channel.postMessage({ type: 'sync' });
+  },
+
+  _default() {
+    return {
+      users: [],
+      products: [],
+      orders: [],
+      sellerApplications: []
+    };
+  },
+
+  get data() { return this._data || this.load(); },
+
+  // ── USERS ──
+  addUser(u) {
+    u.id = 'u_' + Date.now() + '_' + Math.random().toString(36).slice(2,7);
+    u.createdAt = new Date().toISOString();
+    this.data.users.push(u);
+    this.save();
+    return u;
+  },
+  findUserByEmail(email) {
+    return this.data.users.find(u => u.email.toLowerCase() === email.toLowerCase());
+  },
+  findUserById(id) { return this.data.users.find(u => u.id === id); },
+  updateUser(id, patch) {
+    const u = this.findUserById(id);
+    if (u) Object.assign(u, patch);
+    this.save();
+  },
+  getUsers() { return this.data.users; },
+  getSellers() { return this.data.users.filter(u => u.role === 'seller'); },
+
+  // ── SELLER APPLICATIONS ──
+  applyAsSeller(userId, info) {
+    const existing = this.data.sellerApplications.find(a => a.userId === userId && a.status === 'pending');
+    if (existing) return existing;
+    const app = {
+      id: 'app_' + Date.now(),
+      userId,
+      ...info,
+      status: 'pending',
+      appliedAt: new Date().toISOString()
+    };
+    this.data.sellerApplications.push(app);
+    this.save();
+    return app;
+  },
+  getApplications() { return this.data.sellerApplications; },
+  getPendingApplications() { return this.data.sellerApplications.filter(a => a.status === 'pending'); },
+  approveApplication(appId) {
+    const app = this.data.sellerApplications.find(a => a.id === appId);
+    if (!app) return;
+    app.status = 'approved';
+    app.reviewedAt = new Date().toISOString();
+    // upgrade the user to seller role
+    this.updateUser(app.userId, { role: 'seller', sellerStatus: 'active', storeName: app.storeName });
+    this.save();
+  },
+  rejectApplication(appId, reason) {
+    const app = this.data.sellerApplications.find(a => a.id === appId);
+    if (!app) return;
+    app.status = 'rejected';
+    app.rejectionReason = reason || 'Application did not meet requirements.';
+    app.reviewedAt = new Date().toISOString();
+    this.updateUser(app.userId, { role: 'buyer', sellerStatus: null });
+    this.save();
+  },
+
+  // ── PRODUCTS ──
+  addProduct(p) {
+    p.id = 'prod_' + Date.now() + '_' + Math.random().toString(36).slice(2,6);
+    p.createdAt = new Date().toISOString();
+    p.rating = parseFloat((3.5 + Math.random() * 1.5).toFixed(1));
+    p.reviews = Math.floor(Math.random() * 80 + 5);
+    p.sales = 0;
+    this.data.products.push(p);
+    this.save();
+    return p;
+  },
+  getProducts() { return this.data.products; },
+  getApprovedProducts() { return this.data.products.filter(p => p.status === 'active'); },
+  getProductsBySeller(sellerId) { return this.data.products.filter(p => p.sellerId === sellerId); },
+  updateProduct(id, patch) {
+    const p = this.data.products.find(x => x.id === id);
+    if (p) Object.assign(p, patch);
+    this.save();
+  },
+  deleteProduct(id) {
+    this.data.products = this.data.products.filter(p => p.id !== id);
+    this.save();
+  },
+
+  // ── ORDERS ──
+  placeOrder(o) {
+    o.id = 'CBH-' + Date.now().toString().slice(-8);
+    o.placedAt = new Date().toISOString();
+    o.status = 'Processing';
+    // update sales counts
+    o.items.forEach(item => {
+      const p = this.data.products.find(x => x.id === item.productId);
+      if (p) { p.sales = (p.sales || 0) + item.qty; p.stock = Math.max(0, (p.stock || 0) - item.qty); }
+    });
+    this.data.orders.push(o);
+    this.save();
+    return o;
+  },
+  getOrdersByUser(userId) { return this.data.orders.filter(o => o.userId === userId); },
+  getSellerOrders(sellerId) {
+    return this.data.orders.filter(o => o.items.some(i => i.sellerId === sellerId));
+  },
+  getOrders() { return this.data.orders; }
+};
+
+// ── CART (stays per-browser session, not shared) ──
+const Cart = {
+  get() { try { return JSON.parse(localStorage.getItem('cbhub_cart')) || []; } catch { return []; } },
+  save(c) { localStorage.setItem('cbhub_cart', JSON.stringify(c)); },
+  add(product, qty = 1) {
+    const cart = this.get();
+    const ex = cart.find(i => i.productId === product.id);
+    if (ex) ex.qty += qty; else cart.push({ productId: product.id, qty, product });
+    this.save(cart);
+  },
+  updateQty(pid, qty) {
+    let cart = this.get();
+    if (qty <= 0) { cart = cart.filter(i => i.productId !== pid); }
+    else { const ex = cart.find(i => i.productId === pid); if (ex) ex.qty = qty; }
+    this.save(cart);
+  },
+  remove(pid) { this.save(this.get().filter(i => i.productId !== pid)); },
+  clear() { localStorage.removeItem('cbhub_cart'); },
+  total() { return this.get().reduce((s, i) => s + i.product.price * i.qty, 0); },
+  count() { return this.get().reduce((s, i) => s + i.qty, 0); }
+};
+
+// ── SYNC across tabs ──
+if (channel) {
+  channel.onmessage = () => { DB.load(); render(); };
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// SEED DATA
+// ═══════════════════════════════════════════════════════════════════════
+function seedIfEmpty() {
+  DB.load();
+  if (DB.data.users.length > 0) return;
+
+  // Admin account
+  DB.addUser({ name: 'Admin', email: 'admin@coldburghub.co.za', password: 'admin2024', role: 'admin' });
+
+  // Demo seller (pre-approved)
+  const seller = DB.addUser({ name: 'Coldburg Deals', email: 'seller@coldburghub.co.za', password: 'seller123', role: 'seller', sellerStatus: 'active', storeName: 'Coldburg Deals', phone: '+27 11 000 0000', businessCategory: 'Electronics' });
+  const seller2 = DB.addUser({ name: 'SA Tech Hub', email: 'tech@sathub.co.za', password: 'tech123', role: 'seller', sellerStatus: 'active', storeName: 'SA Tech Hub', phone: '+27 21 000 0000', businessCategory: 'Electronics' });
+  // Demo buyer
+  DB.addUser({ name: 'Thabo Nkosi', email: 'thabo@gmail.com', password: 'buyer123', role: 'buyer' });
+  // Pending seller
+  const pending = DB.addUser({ name: 'Zanele Mokoena', email: 'zanele@fashion.co.za', password: 'fashion123', role: 'buyer', sellerStatus: 'pending' });
+  DB.applyAsSeller(pending.id, { storeName: 'Zanele Fashion', businessCategory: 'Fashion', phone: '+27 73 000 0000', businessDescription: 'Trendy African fashion for the modern woman.' });
+
+  const seedProds = [
+    { name: 'Samsung Galaxy A55 5G 256GB', category: 'Electronics', price: 8999, originalPrice: 11499, emoji: '📱', description: '6.6" Super AMOLED, 50MP camera, 5000mAh battery. The ultimate mid-range powerhouse.', stock: 42, sellerId: seller.id, sellerName: 'Coldburg Deals', status: 'active' },
+    { name: 'Apple AirPods Pro 2nd Gen', category: 'Electronics', price: 5499, originalPrice: 6999, emoji: '🎧', description: 'Active Noise Cancellation, Adaptive Transparency, Spatial Audio. H2 chip.', stock: 28, sellerId: seller.id, sellerName: 'Coldburg Deals', status: 'active' },
+    { name: 'LG 65" 4K OLED Smart TV', category: 'Electronics', price: 24999, originalPrice: 32000, emoji: '📺', description: 'Perfect blacks, infinite contrast. Dolby Vision, HDR10+. webOS smart platform.', stock: 7, sellerId: seller.id, sellerName: 'Coldburg Deals', status: 'active' },
+    { name: 'Nike Air Max 270 Black', category: 'Fashion', price: 2199, originalPrice: 2799, emoji: '👟', description: '270° Air unit for all-day comfort. Iconic streetwear design.', stock: 15, sellerId: seller2.id, sellerName: 'SA Tech Hub', status: 'active' },
+    { name: 'Instant Pot Duo 7-in-1 6L', category: 'Home & Kitchen', price: 1899, originalPrice: 2499, emoji: '🍲', description: 'Pressure cook, slow cook, rice cooker, steamer, sauté. 7-in-1 versatility.', stock: 34, sellerId: seller.id, sellerName: 'Coldburg Deals', status: 'active' },
+    { name: 'The Psychology of Money', category: 'Books', price: 245, originalPrice: 320, emoji: '📗', description: 'Morgan Housel. Timeless lessons on wealth, greed, and happiness.', stock: 120, sellerId: seller2.id, sellerName: 'SA Tech Hub', status: 'active' },
+    { name: 'PlayStation 5 Console', category: 'Gaming', price: 17999, originalPrice: 20000, emoji: '🎮', description: 'Ultra-high speed SSD, haptic feedback, adaptive triggers. 4K at 120fps.', stock: 3, sellerId: seller.id, sellerName: 'Coldburg Deals', status: 'active' },
+    { name: "Levi's 501 Original Jeans", category: 'Fashion', price: 1199, originalPrice: 1499, emoji: '👖', description: 'The original jean since 1873. Button fly, straight fit.', stock: 80, sellerId: seller2.id, sellerName: 'SA Tech Hub', status: 'active' },
+    { name: 'Dyson V15 Detect Cordless Vacuum', category: 'Home & Kitchen', price: 13999, originalPrice: 16999, emoji: '🧹', description: 'Laser reveals invisible dust. LCD screen shows pickup data.', stock: 9, sellerId: seller.id, sellerName: 'Coldburg Deals', status: 'active' },
+    { name: 'Nespresso Vertuo Next Coffee Machine', category: 'Electronics', price: 3299, originalPrice: 4200, emoji: '☕', description: 'Centrifusion™ technology. Five cup sizes. Wi-Fi enabled.', stock: 22, sellerId: seller2.id, sellerName: 'SA Tech Hub', status: 'active' },
+    { name: 'KitchenAid Artisan Stand Mixer 4.7L', category: 'Home & Kitchen', price: 9499, originalPrice: 12000, emoji: '🥣', description: '10 speed settings, 59 touchpoints per revolution. Iconic design.', stock: 12, sellerId: seller.id, sellerName: 'Coldburg Deals', status: 'active' },
+    { name: 'Canon EOS R50 Mirrorless Camera', category: 'Electronics', price: 14999, originalPrice: 18500, emoji: '📷', description: '24.2MP APS-C, 4K video, eye-tracking AF. Perfect for creators.', stock: 8, sellerId: seller2.id, sellerName: 'SA Tech Hub', status: 'active' },
+  ];
+  seedProds.forEach(p => DB.addProduct(p));
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// APP STATE
+// ═══════════════════════════════════════════════════════════════════════
+const S = {
+  user: null,
+  modal: null,
+  selectedProduct: null,
+  searchQuery: '',
+  activeCategory: 'All',
+  toasts: [],
+  checkoutStep: 1,
+  deliveryInfo: {},
+  orderComplete: null,
+  sellerTab: 'products',
+  adminTab: 'applications',
+  pendingRejectionId: null,
+};
+
+function loadSession() {
+  try { S.user = JSON.parse(sessionStorage.getItem('cbhub_user')) || null; } catch { S.user = null; }
+  // Always refresh user from DB to get latest role/status
+  if (S.user) {
+    const fresh = DB.findUserById(S.user.id);
+    if (fresh) S.user = fresh;
+    sessionStorage.setItem('cbhub_user', JSON.stringify(S.user));
+  }
+}
+function saveSession() { sessionStorage.setItem('cbhub_user', JSON.stringify(S.user)); }
+function endSession() { sessionStorage.removeItem('cbhub_user'); S.user = null; }
+
+const CATEGORIES = ['All','Electronics','Fashion','Home & Kitchen','Books','Gaming','Beauty','Sports','Toys'];
+
+// ═══════════════════════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════════════════════
+function fmt(n) { return 'R ' + Number(n).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+function disc(orig, cur) { return orig > cur ? Math.round((1 - cur / orig) * 100) + '% off' : ''; }
+function stars(r) { const f = Math.round(r); return '★'.repeat(f) + '☆'.repeat(5 - f); }
+function esc(s) { if (!s) return ''; const d = document.createElement('div'); d.textContent = String(s); return d.innerHTML; }
+function imgOrEmoji(p) {
+  if (p.imageData) return `<img src="${p.imageData}" alt="${esc(p.name)}" />`;
+  return p.emoji || '📦';
+}
+function filteredProducts() {
+  let prods = DB.getApprovedProducts();
+  if (S.activeCategory !== 'All') prods = prods.filter(p => p.category === S.activeCategory);
+  if (S.searchQuery) {
+    const q = S.searchQuery.toLowerCase();
+    prods = prods.filter(p =>
+      p.name.toLowerCase().includes(q) ||
+      p.category.toLowerCase().includes(q) ||
+      (p.description || '').toLowerCase().includes(q) ||
+      (p.sellerName || '').toLowerCase().includes(q)
+    );
+  }
+  return prods;
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════════════════════════════════
+function toast(msg, type = 'success') {
+  const id = Date.now();
+  S.toasts.push({ id, msg, type });
+  render();
+  setTimeout(() => { S.toasts = S.toasts.filter(t => t.id !== id); render(); }, 3500);
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// MODAL HELPERS
+// ═══════════════════════════════════════════════════════════════════════
+function openModal(name, data = {}) {
+  S.modal = name;
+  if (data.product) S.selectedProduct = data.product;
+  if (name !== 'checkout') { S.checkoutStep = 1; S.orderComplete = null; }
+  render();
+}
+function closeModal() {
+  S.modal = null; S.selectedProduct = null;
+  S.orderComplete = null; S.checkoutStep = 1;
+  render();
+}
+function modalAlert(msg, type = 'error') {
+  const el = document.getElementById('modal-alert');
+  if (el) el.innerHTML = `<div class="alert ${type}">${esc(msg)}</div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════════════════════════════
+function render() {
+  document.getElementById('app').innerHTML = html();
+  attachEvents();
+}
+
+function html() {
+  return navbar() + mainContent() + (S.modal ? overlay() : '') + toasts() + footer();
+}
+
+// ── NAVBAR ──
+function navbar() {
+  const cc = Cart.count();
+  const u = S.user;
+  return `
+  <nav class="navbar">
+    <div class="nav-top">
+      <span class="logo" onclick="goHome()">COLDBURG<span>HUB</span></span>
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search millions of products..." value="${esc(S.searchQuery)}"/>
+        <button onclick="doSearch()">🔍</button>
+      </div>
+      <div class="nav-actions">
+        ${u ? `
+          <span class="nav-btn" style="cursor:default;font-size:12px">
+            Hi, ${esc(u.name.split(' ')[0])}
+            ${u.role==='admin'?'<span class="admin-badge">ADMIN</span>':u.role==='seller'?'<span class="seller-badge">SELLER</span>':''}
+          </span>
+          ${u.role === 'admin' ? `<button class="nav-btn admin-btn" onclick="openModal('admin')">⚙️ Admin Panel</button>` : ''}
+          ${u.role === 'seller' && u.sellerStatus === 'active' ? `<button class="nav-btn" onclick="openModal('sellerDash')">📊 Dashboard</button>` : ''}
+          <button class="nav-btn" onclick="openModal('orders')">My Orders</button>
+          <button class="nav-btn" onclick="doLogout()">Logout</button>
+        ` : `
+          <button class="nav-btn" onclick="openModal('login')">Login</button>
+          <button class="nav-btn primary" onclick="openModal('register')">Register</button>
+          <button class="nav-btn" onclick="openModal('sellerApply')">Sell on Hub</button>
+        `}
+        <button class="cart-btn" onclick="openModal('cart')">
+          🛒 Cart ${cc > 0 ? `<span class="cart-badge">${cc}</span>` : ''}
+        </button>
+      </div>
+    </div>
+    <div class="nav-bottom">
+      ${CATEGORIES.map(c => `<span class="nav-cat ${S.activeCategory===c?'active':''}" onclick="filterCat('${c}')">${esc(c)}</span>`).join('')}
+    </div>
+  </nav>`;
+}
+
+// ── MAIN ──
+function mainContent() {
+  const prods = filteredProducts();
+  const isSearch = S.searchQuery.trim().length > 0;
+  return `
+  ${!isSearch && S.activeCategory === 'All' ? hero() : ''}
+  <div class="main">
+    ${!isSearch && S.activeCategory === 'All' ? promoStrip() : ''}
+    ${catPills()}
+    ${isSearch ? `<div style="padding:10px 0;font-size:14px;color:var(--text-muted)">Found <strong>${prods.length}</strong> result(s) for "<strong>${esc(S.searchQuery)}</strong>"</div>` : ''}
+    <div class="section-head">
+      <h2 class="section-title">${isSearch ? '🔍 Results' : S.activeCategory === 'All' ? '🔥 Featured Products' : esc(S.activeCategory)}</h2>
+    </div>
+    ${prods.length === 0 ? emptyState() : `<div class="products-grid">${prods.map(productCard).join('')}</div>`}
+  </div>`;
+}
+
+function hero() {
+  return `
+  <div class="hero">
+    <div class="hero-inner">
+      <h1>South Africa's<br/><span>Biggest Online Hub</span></h1>
+      <p>Millions of products. Unbeatable prices. Fast delivery nationwide.</p>
+      <div class="hero-cta">
+        <button class="btn-hero orange" onclick="goHome()">Shop Now</button>
+        <button class="btn-hero outline" onclick="openModal('sellerApply')">Start Selling</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function promoStrip() {
+  return `
+  <div class="promo-strip">
+    <div class="promo-card blue" onclick="filterCat('Electronics')"><h3>⚡ Electronics</h3><p>Up to 40% off top brands</p></div>
+    <div class="promo-card orange" onclick="filterCat('Fashion')"><h3>👗 Fashion</h3><p>New arrivals daily</p></div>
+    <div class="promo-card dark" onclick="filterCat('Gaming')"><h3>🎮 Gaming</h3><p>Consoles & accessories</p></div>
+  </div>`;
+}
+
+function catPills() {
+  return `<div class="cat-pills">${CATEGORIES.map(c => `<span class="cat-pill ${S.activeCategory===c?'active':''}" onclick="filterCat('${c}')">${esc(c)}</span>`).join('')}</div>`;
+}
+
+function productCard(p) {
+  const d = disc(p.originalPrice, p.price);
+  const imgContent = p.imageData ? `<img src="${esc(p.imageData)}" alt="${esc(p.name)}" style="max-width:100%;max-height:100%;object-fit:contain"/>` : (p.emoji || '📦');
+  return `
+  <div class="product-card" onclick="viewProduct('${p.id}')">
+    ${d ? `<span class="product-badge">${d}</span>` : p.sales > 15 ? `<span class="product-badge hot">HOT</span>` : `<span class="product-badge new">NEW</span>`}
+    <div class="product-img">${imgContent}</div>
+    <div class="product-info">
+      <div class="product-name">${esc(p.name)}</div>
+      <div class="product-seller">by ${esc(p.sellerName)}</div>
+      <div>
+        <span class="product-price">${fmt(p.price)}</span>
+        ${p.originalPrice > p.price ? `<span class="product-original">${fmt(p.originalPrice)}</span>` : ''}
+        ${d ? `<div class="product-discount">Save ${d}</div>` : ''}
+      </div>
+      <div class="product-rating">
+        <span class="stars">${stars(p.rating)}</span>
+        <span class="rating-count">(${p.reviews})</span>
+      </div>
+      <button class="add-to-cart-btn" onclick="event.stopPropagation();addToCart('${p.id}')" ${p.stock===0?'disabled':''}>
+        ${p.stock === 0 ? 'Out of Stock' : '🛒 Add to Cart'}
+      </button>
+    </div>
+  </div>`;
+}
+
+function emptyState() {
+  return `<div class="empty-state"><div class="empty-state-icon">🔍</div><h3>No products found</h3><p>Try a different search or category.</p></div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// OVERLAY / MODALS
+// ═══════════════════════════════════════════════════════════════════════
+function overlay() {
+  const modals = {
+    login: loginModal,
+    register: registerModal,
+    sellerApply: sellerApplyModal,
+    cart: cartModal,
+    product: productModal,
+    checkout: checkoutModal,
+    sellerDash: sellerDashModal,
+    addProduct: addProductModal,
+    orders: ordersModal,
+    admin: adminModal,
+  };
+  const fn = modals[S.modal];
+  if (!fn) return '';
+  return `<div class="overlay" onclick="if(event.target===this)closeModal()">${fn()}</div>`;
+}
+
+// ── LOGIN ──
+function loginModal() {
+  return `
+  <div class="modal">
+    <div class="modal-head"><span class="modal-title">Welcome Back</span><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div id="modal-alert"></div>
+    <div class="form-group"><label>Email</label><input id="l-email" type="email" placeholder="your@email.com"/></div>
+    <div class="form-group"><label>Password</label><input id="l-pass" type="password" placeholder="••••••••"/></div>
+    <button class="btn-primary" onclick="doLogin()">Login</button>
+    <div class="form-switch">No account? <a onclick="openModal('register')">Register</a> · <a onclick="openModal('sellerApply')">Become a Seller</a></div>
+    <div style="margin-top:14px;padding:10px;background:#f8f9fa;border-radius:6px;font-size:11px;color:var(--text-muted);line-height:1.6">
+      <strong>Demo accounts:</strong><br/>
+      Admin: admin@coldburghub.co.za / admin2024<br/>
+      Seller: seller@coldburghub.co.za / seller123<br/>
+      Buyer: thabo@gmail.com / buyer123<br/>
+      Pending seller: zanele@fashion.co.za / fashion123
+    </div>
+  </div>`;
+}
+
+// ── REGISTER ──
+function registerModal() {
+  return `
+  <div class="modal">
+    <div class="modal-head"><span class="modal-title">Create Account</span><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div id="modal-alert"></div>
+    <div class="form-row">
+      <div class="form-group"><label>First Name</label><input id="r-fname" placeholder="Jane"/></div>
+      <div class="form-group"><label>Last Name</label><input id="r-lname" placeholder="Smith"/></div>
+    </div>
+    <div class="form-group"><label>Email</label><input id="r-email" type="email" placeholder="you@email.com"/></div>
+    <div class="form-group"><label>Password</label><input id="r-pass" type="password" placeholder="Min 6 characters"/></div>
+    <div class="form-group"><label>Phone</label><input id="r-phone" placeholder="+27 82 000 0000"/></div>
+    <button class="btn-primary" onclick="doRegister()">Create Account</button>
+    <div class="form-switch">Already have an account? <a onclick="openModal('login')">Login</a></div>
+  </div>`;
+}
+
+// ── SELLER APPLY ──
+function sellerApplyModal() {
+  const isLoggedIn = !!S.user;
+  const isPending = S.user && S.user.sellerStatus === 'pending';
+  const isApproved = S.user && S.user.role === 'seller';
+
+  if (isApproved) {
+    return `<div class="modal"><div class="modal-head"><span class="modal-title">Seller Application</span><button class="modal-close" onclick="closeModal()">✕</button></div>
+      <div class="alert success">✅ You are already an approved seller! Go to your dashboard to manage products.</div>
+      <button class="btn-primary" onclick="openModal('sellerDash')">Go to Dashboard</button></div>`;
+  }
+  if (isPending) {
+    return `<div class="modal"><div class="modal-head"><span class="modal-title">Application Status</span><button class="modal-close" onclick="closeModal()">✕</button></div>
+      <div class="pending-notice">
+        <h3>⏳ Application Under Review</h3>
+        <p>Your seller application is being reviewed by our team. You will be notified once approved. This typically takes 1–2 business days.</p>
+      </div>
+      <button class="btn-outline" onclick="closeModal()">Close</button></div>`;
+  }
+
+  return `
+  <div class="modal wide">
+    <div class="modal-head"><span class="modal-title">🚀 Become a Seller</span><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="alert info" style="margin-bottom:16px">After submitting, an admin will review your application before you can list products. You'll be able to log in immediately and track your application status.</div>
+    <div id="modal-alert"></div>
+    ${!isLoggedIn ? `
+    <p style="font-weight:700;font-size:14px;margin-bottom:12px">Your Account</p>
+    <div class="form-row">
+      <div class="form-group"><label>Your Full Name</label><input id="sa-name" placeholder="Jane Dlamini"/></div>
+      <div class="form-group"><label>Email</label><input id="sa-email" type="email" placeholder="you@store.co.za"/></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Password</label><input id="sa-pass" type="password" placeholder="Min 6 characters"/></div>
+      <div class="form-group"><label>Phone</label><input id="sa-phone" placeholder="+27 82 000 0000"/></div>
+    </div>
+    <hr style="border:none;border-top:1px solid var(--border);margin:16px 0"/>
+    ` : ''}
+    <p style="font-weight:700;font-size:14px;margin-bottom:12px">Store Information</p>
+    <div class="form-row">
+      <div class="form-group"><label>Store / Business Name</label><input id="sa-store" placeholder="My Store ZA"/></div>
+      <div class="form-group"><label>Business Category</label>
+        <select id="sa-cat">${CATEGORIES.filter(c=>c!=='All').map(c=>`<option>${esc(c)}</option>`).join('')}</select>
+      </div>
+    </div>
+    <div class="form-group"><label>Business Description</label><textarea id="sa-desc" placeholder="Tell us about your business, what you sell, and your experience..."></textarea></div>
+    <button class="btn-orange" onclick="doSellerApply()">Submit Application →</button>
+  </div>`;
+}
+
+// ── CART ──
+function cartModal() {
+  const cart = Cart.get();
+  const total = Cart.total();
+  return `
+  <div class="modal wide">
+    <div class="modal-head"><span class="modal-title">🛒 Cart (${Cart.count()} items)</span><button class="modal-close" onclick="closeModal()">✕</button></div>
+    ${cart.length === 0 ? `<div class="empty-state"><div class="empty-state-icon">🛒</div><h3>Your cart is empty</h3><p>Browse products and add items!</p><button class="btn-primary" style="margin-top:20px;width:auto;padding:10px 24px" onclick="closeModal()">Shop Now</button></div>` : `
+    ${cart.map(item => {
+      const imgContent = item.product.imageData ? `<img src="${item.product.imageData}" alt=""/>` : (item.product.emoji || '📦');
+      return `
+      <div class="cart-item">
+        <div class="cart-item-img">${imgContent}</div>
+        <div class="cart-item-info">
+          <div class="cart-item-name">${esc(item.product.name)}</div>
+          <div class="cart-item-seller">by ${esc(item.product.sellerName)}</div>
+          <div class="qty-ctrl">
+            <button class="qty-btn" onclick="updateCartQty('${item.productId}',${item.qty-1})">−</button>
+            <span class="qty-num">${item.qty}</span>
+            <button class="qty-btn" onclick="updateCartQty('${item.productId}',${item.qty+1})">+</button>
+            <button class="cart-remove" onclick="removeCartItem('${item.productId}')">Remove</button>
+          </div>
+        </div>
+        <div class="cart-item-price">${fmt(item.product.price * item.qty)}</div>
+      </div>`}).join('')}
+    <div class="cart-total-row"><span style="font-size:15px;font-weight:600">Subtotal</span><span class="cart-total-val">${fmt(total)}</span></div>
+    <div style="display:flex;gap:12px">
+      <button class="btn-outline" style="flex:1" onclick="closeModal()">Continue Shopping</button>
+      <button class="btn-orange" style="flex:2" onclick="${S.user ? "openModal('checkout')" : "openModal('login')"}">Checkout →</button>
+    </div>
+    `}
+  </div>`;
+}
+
+// ── PRODUCT DETAIL ──
+function productModal() {
+  const p = S.selectedProduct;
+  if (!p) return '';
+  const d = disc(p.originalPrice, p.price);
+  const imgContent = p.imageData ? `<img src="${esc(p.imageData)}" alt="${esc(p.name)}" style="max-width:100%;max-height:100%;object-fit:contain"/>` : (p.emoji || '📦');
+  return `
+  <div class="modal wide">
+    <div class="modal-head"><span class="modal-title">Product Details</span><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="prod-detail">
+      <div>
+        <div class="prod-img-big">${imgContent}</div>
+        ${d ? `<div style="text-align:center;margin-top:10px"><span style="background:var(--red);color:#fff;padding:4px 14px;border-radius:4px;font-weight:700">${d}</span></div>` : ''}
+      </div>
+      <div>
+        <div style="font-size:20px;font-weight:700;line-height:1.3;margin-bottom:8px">${esc(p.name)}</div>
+        <div style="font-size:13px;color:var(--text-muted);margin-bottom:10px">Sold by: <strong>${esc(p.sellerName)}</strong></div>
+        <div class="product-rating" style="margin-bottom:12px"><span class="stars">${stars(p.rating)}</span><span class="rating-count"> ${p.rating} (${p.reviews} reviews)</span></div>
+        <div style="font-size:30px;font-weight:900;color:var(--blue);font-family:var(--font-cond)">${fmt(p.price)}</div>
+        ${p.originalPrice > p.price ? `<div style="font-size:14px;color:var(--text-muted);text-decoration:line-through">${fmt(p.originalPrice)}</div>` : ''}
+        <p style="font-size:14px;color:var(--text-muted);line-height:1.6;margin:14px 0">${esc(p.description || '')}</p>
+        <div style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;margin-bottom:16px">
+          <span style="width:8px;height:8px;border-radius:50%;background:${p.stock>0?'var(--green)':'var(--red)'};display:inline-block"></span>
+          ${p.stock > 0 ? `In Stock (${p.stock} available)` : 'Out of Stock'}
+        </div>
+        <button class="btn-orange" ${p.stock===0?'disabled':''} onclick="addToCart('${p.id}');closeModal()">🛒 Add to Cart</button>
+        <button class="btn-outline" style="margin-top:10px" onclick="closeModal()">Back</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ── CHECKOUT ──
+function checkoutModal() {
+  const cart = Cart.get();
+  const sub = Cart.total();
+  const delivery = 99;
+  const grand = sub + delivery;
+
+  if (S.orderComplete) {
+    const o = S.orderComplete;
+    return `<div class="modal">
+      <div class="order-success">
+        <div class="order-icon">🎉</div>
+        <h2 style="font-family:var(--font-cond);font-size:28px;font-weight:900;color:var(--blue)">Order Placed!</h2>
+        <p style="color:var(--text-muted);margin-top:6px">Thank you for shopping with Coldburg Hub</p>
+        <div class="order-num">Order #${o.id}</div>
+        <p style="font-size:14px">Total: <strong>${fmt(o.total)}</strong></p>
+        <p style="font-size:13px;color:var(--green);font-weight:700;margin-top:10px">📦 Delivery: 2–5 business days</p>
+        <button class="btn-primary" style="margin-top:20px" onclick="closeModal()">Continue Shopping</button>
+      </div>
+    </div>`;
+  }
+
+  return `
+  <div class="modal wide">
+    <div class="modal-head"><span class="modal-title">Checkout</span><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="steps">
+      <div class="step ${S.checkoutStep>=1?'active':''}"><div class="step-num">1</div> Delivery</div>
+      <div class="step-line ${S.checkoutStep>=2?'done':''}"></div>
+      <div class="step ${S.checkoutStep>=2?'active':''}"><div class="step-num">2</div> Payment</div>
+      <div class="step-line ${S.checkoutStep>=3?'done':''}"></div>
+      <div class="step ${S.checkoutStep>=3?'active':''}"><div class="step-num">3</div> Review</div>
+    </div>
+    <div id="modal-alert"></div>
+    ${S.checkoutStep === 1 ? `
+      <div class="form-row">
+        <div class="form-group"><label>First Name</label><input id="d-fn" value="${esc(S.user?.name?.split(' ')[0]||'')}"/></div>
+        <div class="form-group"><label>Last Name</label><input id="d-ln" value="${esc(S.user?.name?.split(' ').slice(1).join(' ')||'')}"/></div>
+      </div>
+      <div class="form-group"><label>Street Address</label><input id="d-addr" placeholder="123 Main Street"/></div>
+      <div class="form-row">
+        <div class="form-group"><label>City</label><input id="d-city" placeholder="Johannesburg"/></div>
+        <div class="form-group"><label>Province</label><select id="d-prov">
+          <option>Gauteng</option><option>Western Cape</option><option>KwaZulu-Natal</option>
+          <option>Eastern Cape</option><option>Limpopo</option><option>Mpumalanga</option>
+          <option>North West</option><option>Free State</option><option>Northern Cape</option>
+        </select></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Postal Code</label><input id="d-zip" placeholder="2000"/></div>
+        <div class="form-group"><label>Phone</label><input id="d-phone" placeholder="+27 82 000 0000"/></div>
+      </div>
+      <button class="btn-primary" onclick="checkoutNext(1)">Continue to Payment →</button>
+    ` : S.checkoutStep === 2 ? `
+      <div class="form-group"><label>Card Number</label><input id="p-card" placeholder="4242 4242 4242 4242" maxlength="19"/></div>
+      <div class="form-row">
+        <div class="form-group"><label>Expiry</label><input id="p-exp" placeholder="12/28"/></div>
+        <div class="form-group"><label>CVV</label><input id="p-cvv" placeholder="123" maxlength="4"/></div>
+      </div>
+      <div class="form-group"><label>Name on Card</label><input id="p-name" placeholder="Jane Smith"/></div>
+      <div style="background:#f8f9fa;padding:10px;border-radius:6px;font-size:12px;color:var(--text-muted);margin-bottom:14px">🔒 Demo only — no real payment processed.</div>
+      <div style="display:flex;gap:10px">
+        <button class="btn-outline" onclick="S.checkoutStep=1;render()">← Back</button>
+        <button class="btn-primary" style="flex:2" onclick="checkoutNext(2)">Review Order →</button>
+      </div>
+    ` : `
+      <div style="background:#f8f9fa;border-radius:6px;padding:14px;margin-bottom:16px">
+        ${cart.map(i=>`<div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px"><span>${esc(i.product.name)} ×${i.qty}</span><strong>${fmt(i.product.price*i.qty)}</strong></div>`).join('')}
+        <hr style="border:none;border-top:1px solid var(--border);margin:10px 0"/>
+        <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px"><span>Subtotal</span><span>${fmt(sub)}</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px"><span>Delivery</span><span>${fmt(delivery)}</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:16px;font-weight:800"><span>Total</span><span style="color:var(--blue)">${fmt(grand)}</span></div>
+      </div>
+      <div style="font-size:13px;margin-bottom:14px;color:var(--text-muted)">📦 Delivering to: ${esc(S.deliveryInfo.address)}, ${esc(S.deliveryInfo.city)}</div>
+      <div style="display:flex;gap:10px">
+        <button class="btn-outline" onclick="S.checkoutStep=2;render()">← Back</button>
+        <button class="btn-orange" style="flex:2" onclick="doPlaceOrder(${grand})">Place Order & Pay ${fmt(grand)}</button>
+      </div>
+    `}
+  </div>`;
+}
+
+// ── SELLER DASHBOARD ──
+function sellerDashModal() {
+  const myProds = DB.getProductsBySeller(S.user.id);
+  const myOrders = DB.getSellerOrders(S.user.id);
+  const revenue = myOrders.reduce((s, o) => s + o.items.filter(i => i.sellerId === S.user.id).reduce((ss, i) => ss + i.price * i.qty, 0), 0);
+
+  return `
+  <div class="modal xl">
+    <div class="modal-head"><span class="modal-title">📊 Seller Dashboard — ${esc(S.user.storeName || S.user.name)}</span><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="dash-grid">
+      <div class="dash-stat"><div class="dash-stat-val">${myProds.length}</div><div class="dash-stat-label">Active Listings</div></div>
+      <div class="dash-stat orange"><div class="dash-stat-val">${myOrders.length}</div><div class="dash-stat-label">Total Orders</div></div>
+      <div class="dash-stat green"><div class="dash-stat-val">${fmt(revenue)}</div><div class="dash-stat-label">Total Revenue</div></div>
+    </div>
+    <div class="admin-tabs">
+      <span class="admin-tab ${S.sellerTab==='products'?'active':''}" onclick="S.sellerTab='products';render()">My Products</span>
+      <span class="admin-tab ${S.sellerTab==='orders'?'active':''}" onclick="S.sellerTab='orders';render()">Orders</span>
+      <span class="admin-tab ${S.sellerTab==='add'?'active':''}" onclick="openModal('addProduct')">+ Add Product</span>
+    </div>
+    ${S.sellerTab === 'products' ? `
+      ${myProds.length === 0 ? `<div class="empty-state"><div class="empty-state-icon">📦</div><h3>No products yet</h3><p><a onclick="openModal('addProduct')" style="color:var(--blue);cursor:pointer;font-weight:600">Add your first product →</a></p></div>` : `
+      <div style="overflow-x:auto"><table class="data-table">
+        <thead><tr><th>Product</th><th>Category</th><th>Price</th><th>Stock</th><th>Sales</th><th>Action</th></tr></thead>
+        <tbody>
+          ${myProds.map(p=>`<tr>
+            <td>${p.emoji||'📦'} <strong>${esc(p.name.substring(0,35))}${p.name.length>35?'...':''}</strong></td>
+            <td>${esc(p.category)}</td><td>${fmt(p.price)}</td><td>${p.stock}</td><td>${p.sales||0}</td>
+            <td><button class="btn-red" onclick="doDeleteProduct('${p.id}')">Delete</button></td>
+          </tr>`).join('')}
+        </tbody>
+      </table></div>`}
+    ` : `
+      ${myOrders.length === 0 ? `<div class="empty-state"><div class="empty-state-icon">📋</div><h3>No orders yet</h3></div>` : `
+      <div style="overflow-x:auto"><table class="data-table">
+        <thead><tr><th>Order ID</th><th>Date</th><th>Items</th><th>Revenue</th><th>Status</th></tr></thead>
+        <tbody>
+          ${myOrders.map(o=>{
+            const myItems = o.items.filter(i=>i.sellerId===S.user.id);
+            const myRev = myItems.reduce((s,i)=>s+i.price*i.qty,0);
+            return `<tr>
+              <td><strong>${esc(o.id)}</strong></td>
+              <td>${new Date(o.placedAt).toLocaleDateString('en-ZA')}</td>
+              <td>${myItems.map(i=>`${esc(i.name.substring(0,20))} ×${i.qty}`).join(', ')}</td>
+              <td>${fmt(myRev)}</td>
+              <td><span class="badge processing">${esc(o.status)}</span></td>
+            </tr>`;}).join('')}
+        </tbody>
+      </table></div>`}
+    `}
+  </div>`;
+}
+
+// ── ADD PRODUCT ──
+function addProductModal() {
+  return `
+  <div class="modal wide">
+    <div class="modal-head"><span class="modal-title">Add New Product</span><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div id="modal-alert"></div>
+    <div class="form-group"><label>Product Name</label><input id="ap-name" placeholder="e.g. Samsung Galaxy S25 Ultra 512GB"/></div>
+    <div class="form-row">
+      <div class="form-group"><label>Category</label><select id="ap-cat">${CATEGORIES.filter(c=>c!=='All').map(c=>`<option>${esc(c)}</option>`).join('')}</select></div>
+      <div class="form-group"><label>Emoji Icon (fallback)</label><input id="ap-emoji" placeholder="📦" maxlength="4" value="📦"/></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Selling Price (R)</label><input type="number" id="ap-price" placeholder="999" min="0"/></div>
+      <div class="form-group"><label>Original / Compare Price (R)</label><input type="number" id="ap-orig" placeholder="1299 (optional)"/></div>
+    </div>
+    <div class="form-group"><label>Stock Quantity</label><input type="number" id="ap-stock" placeholder="50" min="0"/></div>
+    <div class="form-group"><label>Product Description</label><textarea id="ap-desc" placeholder="Describe your product in detail..."></textarea></div>
+    <div class="form-group">
+      <label>Product Image (optional)</label>
+      <label class="file-input-label" for="ap-img-file">📷 Click to upload image (JPG, PNG, WEBP · max 2MB)</label>
+      <input type="file" id="ap-img-file" accept="image/*" style="display:none" onchange="previewProductImage(this)"/>
+      <div id="ap-img-preview"></div>
+    </div>
+    <button class="btn-orange" onclick="doAddProduct()">📦 List Product on Coldburg Hub</button>
+  </div>`;
+}
+
+// ── ORDERS ──
+function ordersModal() {
+  const orders = S.user ? DB.getOrdersByUser(S.user.id) : [];
+  return `
+  <div class="modal wide">
+    <div class="modal-head"><span class="modal-title">My Orders</span><button class="modal-close" onclick="closeModal()">✕</button></div>
+    ${orders.length === 0 ? `<div class="empty-state"><div class="empty-state-icon">📦</div><h3>No orders yet</h3><p>Start shopping!</p><button class="btn-primary" style="margin-top:16px;width:auto;padding:10px 20px" onclick="closeModal()">Browse Products</button></div>` : `
+    ${orders.slice().reverse().map(o=>`
+    <div class="order-card">
+      <div style="display:flex;justify-content:space-between;margin-bottom:10px;font-size:13px">
+        <div><strong>${esc(o.id)}</strong> <span style="color:var(--text-muted);margin-left:10px">${new Date(o.placedAt).toLocaleDateString('en-ZA')}</span></div>
+        <span class="badge processing">${esc(o.status)}</span>
+      </div>
+      ${o.items.map(i=>`<div style="display:flex;align-items:center;gap:10px;font-size:13px;margin-bottom:6px">
+        <span>${i.emoji||'📦'}</span> ${esc(i.name)} ×${i.qty}
+        <span style="margin-left:auto;font-weight:700">${fmt(i.price*i.qty)}</span>
+      </div>`).join('')}
+      <div style="border-top:1px solid var(--border);padding-top:10px;margin-top:6px;display:flex;justify-content:space-between">
+        <span style="font-size:13px;color:var(--text-muted)">Total</span><strong>${fmt(o.total)}</strong>
+      </div>
+    </div>`).join('')}
+    `}
+  </div>`;
+}
+
+// ── ADMIN PANEL ──
+function adminModal() {
+  DB.load(); // always fresh
+  const apps = DB.getApplications();
+  const pending = apps.filter(a => a.status === 'pending');
+  const sellers = DB.getSellers();
+  const buyers = DB.getUsers().filter(u => u.role === 'buyer');
+  const allProds = DB.getProducts();
+  const allOrders = DB.getOrders();
+
+  return `
+  <div class="modal xl">
+    <div class="modal-head"><span class="modal-title">⚙️ Admin Panel</span><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="admin-header">
+      <div>
+        <h2>Coldburg Hub Admin</h2>
+        <p style="opacity:.8;font-size:14px">Manage sellers, products, and platform operations</p>
+      </div>
+      <div style="display:flex;gap:16px;font-size:13px">
+        <div style="text-align:center"><div style="font-size:26px;font-weight:900">${pending.length}</div><div>Pending</div></div>
+        <div style="text-align:center"><div style="font-size:26px;font-weight:900">${sellers.length}</div><div>Sellers</div></div>
+        <div style="text-align:center"><div style="font-size:26px;font-weight:900">${allProds.length}</div><div>Products</div></div>
+        <div style="text-align:center"><div style="font-size:26px;font-weight:900">${allOrders.length}</div><div>Orders</div></div>
+      </div>
+    </div>
+    <div class="admin-tabs">
+      <span class="admin-tab ${S.adminTab==='applications'?'active':''}" onclick="S.adminTab='applications';render()">
+        Seller Applications ${pending.length>0?`<span style="background:var(--red);color:#fff;font-size:10px;padding:1px 6px;border-radius:10px;margin-left:4px">${pending.length}</span>`:''}
+      </span>
+      <span class="admin-tab ${S.adminTab==='sellers'?'active':''}" onclick="S.adminTab='sellers';render()">Sellers</span>
+      <span class="admin-tab ${S.adminTab==='products'?'active':''}" onclick="S.adminTab='products';render()">Products</span>
+      <span class="admin-tab ${S.adminTab==='buyers'?'active':''}" onclick="S.adminTab='buyers';render()">Buyers</span>
+      <span class="admin-tab ${S.adminTab==='orders'?'active':''}" onclick="S.adminTab='orders';render()">Orders</span>
+    </div>
+
+    ${S.adminTab === 'applications' ? `
+      ${apps.length === 0 ? `<div class="empty-state"><div class="empty-state-icon">📋</div><h3>No applications yet</h3></div>` : `
+      <div style="overflow-x:auto"><table class="data-table">
+        <thead><tr><th>Store Name</th><th>Applicant</th><th>Category</th><th>Applied</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>
+          ${apps.slice().reverse().map(app=>{
+            const u = DB.findUserById(app.userId);
+            return `<tr>
+              <td><strong>${esc(app.storeName)}</strong><br/><span style="font-size:11px;color:var(--text-muted)">${esc(app.businessDescription?.substring(0,60))}...</span></td>
+              <td>${esc(u?.name||'Unknown')}<br/><span style="font-size:11px;color:var(--text-muted)">${esc(u?.email||'')}</span></td>
+              <td>${esc(app.businessCategory)}</td>
+              <td>${new Date(app.appliedAt).toLocaleDateString('en-ZA')}</td>
+              <td><span class="badge ${app.status}">${esc(app.status)}</span></td>
+              <td>
+                ${app.status==='pending' ? `
+                  <button class="btn-green" onclick="adminApprove('${app.id}')" style="margin-right:6px">✓ Approve</button>
+                  <button class="btn-red" onclick="adminReject('${app.id}')">✗ Reject</button>
+                ` : `<span style="font-size:12px;color:var(--text-muted)">${app.status==='approved'?'✅ Approved':'❌ Rejected'}</span>`}
+              </td>
+            </tr>`;}).join('')}
+        </tbody>
+      </table></div>`}
+    ` : S.adminTab === 'sellers' ? `
+      <div style="overflow-x:auto"><table class="data-table">
+        <thead><tr><th>Store</th><th>Email</th><th>Category</th><th>Products</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody>
+          ${sellers.length === 0 ? `<tr><td colspan="6" style="text-align:center;color:var(--text-muted)">No sellers yet</td></tr>` :
+          sellers.map(s=>{
+            const prodCount = DB.getProductsBySeller(s.id).length;
+            return `<tr>
+              <td><strong>${esc(s.storeName||s.name)}</strong></td>
+              <td>${esc(s.email)}</td>
+              <td>${esc(s.businessCategory||'—')}</td>
+              <td>${prodCount}</td>
+              <td><span class="badge ${s.sellerStatus==='active'?'approved':s.sellerStatus||'pending'}">${esc(s.sellerStatus||'active')}</span></td>
+              <td><button class="btn-red" onclick="adminSuspendSeller('${s.id}')" ${s.sellerStatus==='suspended'?'disabled':''}>Suspend</button></td>
+            </tr>`;}).join('')}
+        </tbody>
+      </table></div>
+    ` : S.adminTab === 'products' ? `
+      <div style="overflow-x:auto"><table class="data-table">
+        <thead><tr><th>Product</th><th>Seller</th><th>Price</th><th>Stock</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody>
+          ${allProds.length === 0 ? `<tr><td colspan="6" style="text-align:center;color:var(--text-muted)">No products</td></tr>` :
+          allProds.map(p=>`<tr>
+            <td>${p.emoji||'📦'} <strong>${esc(p.name.substring(0,30))}</strong></td>
+            <td>${esc(p.sellerName)}</td>
+            <td>${fmt(p.price)}</td>
+            <td>${p.stock}</td>
+            <td><span class="badge approved">${esc(p.status||'active')}</span></td>
+            <td><button class="btn-red" onclick="adminRemoveProduct('${p.id}')">Remove</button></td>
+          </tr>`).join('')}
+        </tbody>
+      </table></div>
+    ` : S.adminTab === 'buyers' ? `
+      <div style="overflow-x:auto"><table class="data-table">
+        <thead><tr><th>Name</th><th>Email</th><th>Joined</th><th>Orders</th></tr></thead>
+        <tbody>
+          ${buyers.length === 0 ? `<tr><td colspan="4" style="text-align:center;color:var(--text-muted)">No buyers yet</td></tr>` :
+          buyers.map(u=>{
+            const oc = DB.getOrdersByUser(u.id).length;
+            return `<tr>
+              <td>${esc(u.name)}</td>
+              <td>${esc(u.email)}</td>
+              <td>${new Date(u.createdAt).toLocaleDateString('en-ZA')}</td>
+              <td>${oc}</td>
+            </tr>`;}).join('')}
+        </tbody>
+      </table></div>
+    ` : `
+      <div style="overflow-x:auto"><table class="data-table">
+        <thead><tr><th>Order ID</th><th>Buyer</th><th>Items</th><th>Total</th><th>Date</th><th>Status</th></tr></thead>
+        <tbody>
+          ${allOrders.length === 0 ? `<tr><td colspan="6" style="text-align:center;color:var(--text-muted)">No orders yet</td></tr>` :
+          allOrders.slice().reverse().map(o=>{
+            const u = DB.findUserById(o.userId);
+            return `<tr>
+              <td><strong>${esc(o.id)}</strong></td>
+              <td>${esc(u?.name||o.userId)}</td>
+              <td>${o.items.length}</td>
+              <td>${fmt(o.total)}</td>
+              <td>${new Date(o.placedAt).toLocaleDateString('en-ZA')}</td>
+              <td><span class="badge processing">${esc(o.status)}</span></td>
+            </tr>`;}).join('')}
+        </tbody>
+      </table></div>
+    `}
+  </div>`;
+}
+
+// ── TOASTS ──
+function toasts() {
+  return `<div class="toast-container">${S.toasts.map(t=>`<div class="toast ${t.type}">${t.msg}</div>`).join('')}</div>`;
+}
+
+// ── FOOTER ──
+function footer() {
+  return `
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-col"><h4>COLDBURGHUB</h4><p style="font-size:13px;margin-bottom:10px">South Africa's fastest growing online marketplace.</p></div>
+        <div class="footer-col"><h4>Help</h4><a>Track My Order</a><a>Returns</a><a>Payment Methods</a><a>Contact Us</a></div>
+        <div class="footer-col"><h4>Sell</h4><a onclick="openModal('sellerApply')">Become a Seller</a><a>Seller Guidelines</a><a>Seller Dashboard</a></div>
+        <div class="footer-col"><h4>Company</h4><a>About Us</a><a>Privacy Policy</a><a>Terms</a><a>Careers</a></div>
+      </div>
+      <div class="footer-bottom">© 2026 Coldburg Hub (Pty) Ltd. Registered in South Africa.</div>
+    </div>
+  </footer>`;
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// EVENT HANDLERS
+// ═══════════════════════════════════════════════════════════════════════
+function attachEvents() {
+  const si = document.getElementById('searchInput');
+  if (si) {
+    si.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+    si.addEventListener('input', e => { S.searchQuery = e.target.value; });
+  }
+}
+
+function goHome() { S.searchQuery = ''; S.activeCategory = 'All'; render(); }
+function doSearch() { const si = document.getElementById('searchInput'); if (si) S.searchQuery = si.value; S.activeCategory = 'All'; render(); }
+function filterCat(c) { S.activeCategory = c; S.searchQuery = ''; render(); }
+
+// ── AUTH ──
+function doLogin() {
+  const email = document.getElementById('l-email')?.value?.trim();
+  const pass = document.getElementById('l-pass')?.value;
+  if (!email || !pass) return modalAlert('Please fill in all fields.');
+  DB.load();
+  const user = DB.findUserByEmail(email);
+  if (!user || user.password !== pass) return modalAlert('Invalid email or password.');
+  S.user = user;
+  saveSession();
+  closeModal();
+  toast(`👋 Welcome back, ${user.name.split(' ')[0]}!`, 'info');
+
+  // If pending seller, show notice
+  if (user.sellerStatus === 'pending') {
+    setTimeout(() => openModal('sellerApply'), 300);
+  }
+}
+
+function doLogout() { endSession(); S.modal = null; render(); toast('Logged out.', 'info'); }
+
+function doRegister() {
+  const fname = document.getElementById('r-fname')?.value?.trim();
+  const lname = document.getElementById('r-lname')?.value?.trim();
+  const email = document.getElementById('r-email')?.value?.trim();
+  const pass = document.getElementById('r-pass')?.value;
+  const phone = document.getElementById('r-phone')?.value?.trim();
+  if (!fname || !lname || !email || !pass) return modalAlert('Please fill in all required fields.');
+  if (pass.length < 6) return modalAlert('Password must be at least 6 characters.');
+  DB.load();
+  if (DB.findUserByEmail(email)) return modalAlert('An account with this email already exists.');
+  const user = DB.addUser({ name: `${fname} ${lname}`, email, password: pass, phone, role: 'buyer' });
+  S.user = user; saveSession();
+  closeModal();
+  toast(`🎉 Welcome to Coldburg Hub, ${fname}!`, 'success');
+}
+
+function doSellerApply() {
+  DB.load();
+  let userId;
+  if (!S.user) {
+    const name = document.getElementById('sa-name')?.value?.trim();
+    const email = document.getElementById('sa-email')?.value?.trim();
+    const pass = document.getElementById('sa-pass')?.value;
+    const phone = document.getElementById('sa-phone')?.value?.trim();
+    if (!name || !email || !pass) return modalAlert('Please fill in all account fields.');
+    if (pass.length < 6) return modalAlert('Password must be at least 6 characters.');
+    if (DB.findUserByEmail(email)) return modalAlert('Email already registered. Please login first.');
+    const user = DB.addUser({ name, email, password: pass, phone, role: 'buyer', sellerStatus: 'pending' });
+    S.user = user; saveSession();
+    userId = user.id;
+  } else {
+    userId = S.user.id;
+  }
+  const storeName = document.getElementById('sa-store')?.value?.trim();
+  const category = document.getElementById('sa-cat')?.value;
+  const desc = document.getElementById('sa-desc')?.value?.trim();
+  if (!storeName) return modalAlert('Please enter your store name.');
+  if (!desc) return modalAlert('Please describe your business.');
+  DB.updateUser(userId, { sellerStatus: 'pending' });
+  DB.applyAsSeller(userId, { storeName, businessCategory: category, businessDescription: desc, phone: S.user.phone || '' });
+  S.user = DB.findUserById(userId); saveSession();
+  closeModal();
+  toast('✅ Application submitted! Awaiting admin approval.', 'success');
+  setTimeout(() => openModal('sellerApply'), 400);
+}
+
+// ── PRODUCTS ──
+function viewProduct(id) {
+  DB.load();
+  const p = DB.getProducts().find(x => x.id === id);
+  if (p) { S.selectedProduct = p; openModal('product'); }
+}
+
+function addToCart(id) {
+  DB.load();
+  const p = DB.getProducts().find(x => x.id === id);
+  if (!p || p.stock === 0) return;
+  Cart.add(p);
+  toast(`✅ Added to cart!`, 'success');
+  render();
+}
+
+function updateCartQty(pid, qty) { Cart.updateQty(pid, qty); render(); }
+function removeCartItem(pid) { Cart.remove(pid); render(); }
+
+// ── CHECKOUT ──
+function checkoutNext(step) {
+  if (step === 1) {
+    const addr = document.getElementById('d-addr')?.value?.trim();
+    const city = document.getElementById('d-city')?.value?.trim();
+    const fn = document.getElementById('d-fn')?.value?.trim();
+    if (!fn || !addr || !city) return modalAlert('Please complete all delivery fields.');
+    S.deliveryInfo = {
+      name: `${fn} ${document.getElementById('d-ln')?.value||''}`,
+      address: document.getElementById('d-addr')?.value,
+      city: document.getElementById('d-city')?.value,
+      province: document.getElementById('d-prov')?.value,
+      zip: document.getElementById('d-zip')?.value,
+      phone: document.getElementById('d-phone')?.value,
+    };
+    S.checkoutStep = 2; render();
+  } else {
+    const card = document.getElementById('p-card')?.value?.replace(/\s/g,'');
+    const exp = document.getElementById('p-exp')?.value?.trim();
+    const cvv = document.getElementById('p-cvv')?.value?.trim();
+    if (!card || card.length < 16 || !exp || !cvv) return modalAlert('Please enter valid payment details.');
+    S.checkoutStep = 3; render();
+  }
+}
+
+function doPlaceOrder(total) {
+  const cart = Cart.get();
+  if (!cart.length) return;
+  const items = cart.map(i => ({
+    productId: i.productId,
+    name: i.product.name,
+    emoji: i.product.emoji,
+    price: i.product.price,
+    qty: i.qty,
+    sellerId: i.product.sellerId,
+    sellerName: i.product.sellerName,
+  }));
+  const order = DB.placeOrder({ userId: S.user.id, items, deliveryInfo: S.deliveryInfo, total });
+  Cart.clear();
+  S.orderComplete = order;
+  render();
+  toast(`🎉 Order #${order.id} placed!`, 'success');
+}
+
+// ── SELLER ──
+let _pendingImageData = null;
+function previewProductImage(input) {
+  const file = input.files[0];
+  if (!file) return;
+  if (file.size > 2 * 1024 * 1024) { toast('Image must be under 2MB', 'error'); input.value=''; return; }
+  const reader = new FileReader();
+  reader.onload = e => {
+    _pendingImageData = e.target.result;
+    const prev = document.getElementById('ap-img-preview');
+    if (prev) prev.innerHTML = `<img src="${e.target.result}" class="img-preview" style="margin-top:8px"/>`;
+  };
+  reader.readAsDataURL(file);
+}
+
+function doAddProduct() {
+  const name = document.getElementById('ap-name')?.value?.trim();
+  const cat = document.getElementById('ap-cat')?.value;
+  const emoji = document.getElementById('ap-emoji')?.value?.trim() || '📦';
+  const price = parseFloat(document.getElementById('ap-price')?.value);
+  const orig = parseFloat(document.getElementById('ap-orig')?.value);
+  const stock = parseInt(document.getElementById('ap-stock')?.value) || 0;
+  const desc = document.getElementById('ap-desc')?.value?.trim();
+  if (!name || isNaN(price) || price <= 0) return modalAlert('Please enter a product name and valid price.');
+  DB.addProduct({
+    name, category: cat, emoji,
+    price, originalPrice: orig > price ? orig : price,
+    stock, description: desc,
+    imageData: _pendingImageData || null,
+    sellerId: S.user.id,
+    sellerName: S.user.storeName || S.user.name,
+    status: 'active'
+  });
+  _pendingImageData = null;
+  closeModal();
+  toast(`✅ "${name.substring(0,30)}" is now live on Coldburg Hub!`, 'success');
+  render();
+}
+
+function doDeleteProduct(id) {
+  if (!confirm('Delete this product?')) return;
+  DB.deleteProduct(id);
+  toast('Product removed.', 'warning');
+  render();
+}
+
+// ── ADMIN ──
+function adminApprove(appId) {
+  DB.load();
+  DB.approveApplication(appId);
+  toast('✅ Seller approved! They can now list products.', 'success');
+  render();
+}
+
+function adminReject(appId) {
+  DB.load();
+  const reason = prompt('Reason for rejection (optional):') || '';
+  DB.rejectApplication(appId, reason);
+  toast('❌ Application rejected.', 'warning');
+  render();
+}
+
+function adminSuspendSeller(sellerId) {
+  if (!confirm('Suspend this seller? Their products will remain but they cannot log in as a seller.')) return;
+  DB.updateUser(sellerId, { sellerStatus: 'suspended' });
+  toast('Seller suspended.', 'warning');
+  render();
+}
+
+function adminRemoveProduct(id) {
+  if (!confirm('Remove this product from the platform?')) return;
+  DB.deleteProduct(id);
+  toast('Product removed.', 'warning');
+  render();
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════════════
+DB.load();
+seedIfEmpty();
+loadSession();
+render();
+</script>
+</body>
+</html>
